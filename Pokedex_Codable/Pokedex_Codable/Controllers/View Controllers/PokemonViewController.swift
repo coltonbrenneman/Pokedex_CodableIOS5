@@ -21,26 +21,6 @@ class PokemonViewController: UIViewController {
         pokemonMovesTableView.dataSource = self
         pokemonSearchBar.delegate = self
     }
-    
-    var pokemon: Pokemon?
-    
-    func updateViews(for pokemon: Pokemon) {
-        NetworkingController.fetchImage(for: pokemon.sprites.frontShiny) { [weak self] result in
-            switch result {
-            case.success(let image):
-                DispatchQueue.main.async {
-                    self?.pokemon = pokemon
-                    self?.pokemonSpriteImageView.image = image
-                    self?.pokemonIDLabel.text = ("No:\(pokemon.id)")
-                    self?.pokemonNameLabel.text = pokemon.name.capitalized
-                    self?.pokemonMovesTableView.reloadData()
-                }
-            case .failure(let error):
-                print("There was an error!", error.errorDescription!)
-            }
-        }
-    }
-    
 }// End
 
 
@@ -57,20 +37,12 @@ extension PokemonViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "moveCell", for: indexPath)
-//        guard let pokemon = pokemon else {return UITableViewCell() }
-//        let move = pokemon.moves[indexPath.row]
-//        cell.textLabel?.text = move
         return cell
     }
 }
 
 extension PokemonViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        NetworkingController.fetchPokemon(with: searchText) { pokemon in
-//            guard let pokemon = pokemon else {
-//                return
-//            }
-//            self.updateViews(for: pokemon)
-//        }
+
     }
 }
