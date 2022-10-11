@@ -11,7 +11,11 @@ import UIKit.UIImage
 struct NetworkingController {
     
     private static let baseURLString = "https://pokeapi.co"
-        
+    private static let kPokemonComponent = "pokemon"
+    private static let kApiComponent = "api"
+    private static let kV2Compmonent = "v2"
+    
+    // TODO - Update to a URL as a parameter to allow for pagination
     static func fetchPokedex(with url: URL, completion: @escaping(Result<Pokedex, ResultError>) -> Void) {
         
         URLSession.shared.dataTask(with: url) { dTaskData, _, error in
