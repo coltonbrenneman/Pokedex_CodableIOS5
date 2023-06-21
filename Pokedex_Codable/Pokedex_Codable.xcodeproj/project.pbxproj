@@ -16,6 +16,7 @@
 		418FA68C27B2375B00ABEC96 /* NetworkingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418FA68B27B2375B00ABEC96 /* NetworkingController.swift */; };
 		418FA68E27B237A100ABEC96 /* PokemonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418FA68D27B237A100ABEC96 /* PokemonViewController.swift */; };
 		44BC79832A4366CE00C39FF4 /* Pokedex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BC79822A4366CE00C39FF4 /* Pokedex.swift */; };
+		44BC79852A43783900C39FF4 /* ResultError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BC79842A43783900C39FF4 /* ResultError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		418FA68B27B2375B00ABEC96 /* NetworkingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingController.swift; sourceTree = "<group>"; };
 		418FA68D27B237A100ABEC96 /* PokemonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonViewController.swift; sourceTree = "<group>"; };
 		44BC79822A4366CE00C39FF4 /* Pokedex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokedex.swift; sourceTree = "<group>"; };
+		44BC79842A43783900C39FF4 /* ResultError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				418FA68B27B2375B00ABEC96 /* NetworkingController.swift */,
+				44BC79842A43783900C39FF4 /* ResultError.swift */,
 			);
 			path = ModelControllers;
 			sourceTree = "<group>";
@@ -198,6 +201,7 @@
 				418FA67027B2349C00ABEC96 /* AppDelegate.swift in Sources */,
 				418FA68E27B237A100ABEC96 /* PokemonViewController.swift in Sources */,
 				44BC79832A4366CE00C39FF4 /* Pokedex.swift in Sources */,
+				44BC79852A43783900C39FF4 /* ResultError.swift in Sources */,
 				418FA68C27B2375B00ABEC96 /* NetworkingController.swift in Sources */,
 				418FA67227B2349C00ABEC96 /* SceneDelegate.swift in Sources */,
 				418FA68627B236D400ABEC96 /* Pokemon.swift in Sources */,
