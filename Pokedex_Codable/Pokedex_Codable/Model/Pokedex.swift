@@ -9,7 +9,7 @@ import Foundation
 
 //This will decode the lsit of Pokemon
 
-struct pokedexTopLevel: Decodable {
+struct PokedexTopLevel: Decodable {
     let next: String
     let results: [ResultDict]
 }

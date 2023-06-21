@@ -10,7 +10,6 @@ import UIKit
 class PokemonViewController: UIViewController {
 
     // MARK: - Outlets
-    @IBOutlet weak var pokemonSearchBar: UISearchBar!
     @IBOutlet weak var pokemonIDLabel: UILabel!
     @IBOutlet weak var pokemonNameLabel: UILabel!
     @IBOutlet weak var pokemonSpriteImageView: UIImageView!
@@ -21,24 +20,21 @@ class PokemonViewController: UIViewController {
         super.viewDidLoad()
         pokemonMovesTableView.delegate = self
         pokemonMovesTableView.dataSource = self
-        pokemonSearchBar.delegate = self
+        updateViews(for: pokemon)
     }
     
     // MARK: - Properties
     var pokemon: Pokemon?
+    var pokemonSprite: UIImage?
     
     // MARK: - Functions
-    func updateViews(for pokemon: Pokemon) {
-        NetworkingController.fetchImage(for: pokemon) { image in
-            guard let image = image else {return}
-            DispatchQueue.main.async {
-                self.pokemon = pokemon
-                self.pokemonSpriteImageView.image = image
-                self.pokemonIDLabel.text = ("No:\(pokemon.id)")
-                self.pokemonNameLabel.text = pokemon.name.capitalized
-                self.pokemonMovesTableView.reloadData()
-            }
-        }
+    func updateViews(for pokemon: Pokemon?) {
+        guard let pokemon = pokemon else { return }
+        self.pokemonSpriteImageView.image = pokemonSprite
+        self.pokemonIDLabel.text = ("No:\(pokemon.id)")
+        self.pokemonNameLabel.text = pokemon.name.capitalized
+        self.pokemonMovesTableView.reloadData()
+        
     }
 }// End of class
 
@@ -57,16 +53,5 @@ extension PokemonViewController: UITableViewDelegate, UITableViewDataSource {
         let moveDict = pokemon.moves[indexPath.row]
         cell.textLabel?.text = moveDict.move.name
         return cell
-    }
-}
-
-extension PokemonViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        NetworkingController.fetchPokemon(with: searchText) { pokemon in
-            guard let pokemon = pokemon else {
-                return
-            }
-            self.updateViews(for: pokemon)
-        }
     }
 }
