@@ -12,13 +12,17 @@ class NetworkingController {
     
     private static let baseURLString = "https://pokeapi.co"
     
-    static func fetchPokemon(with searchTerm: String, completion: @escaping (Result<Pokemon, ResultError>) -> Void) {
+    static func fetchPokemon(with searchTerm: String, completion: @escaping (Result<Pokemon, NetworkError>) -> Void) {
         guard let baseURL = URL(string: baseURLString) else {return}
         var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
         urlComponents?.path = "/api/v2/pokemon/\(searchTerm.lowercased())"
 
         guard let finalURL = urlComponents?.url else {return}
         print(finalURL)
+
+//        guard let finalURL = searchTerm.finalPokemonURL else { completion(.failure(.invalidURL)) ; return }
+//        let request = URLRequest(url: finalURL)
+//        print(request)
         
         URLSession.shared.dataTask(with: finalURL) { dTaskData, _, error in
             if let error = error {
@@ -38,7 +42,7 @@ class NetworkingController {
         }.resume()
     } //End of fetchPokemon
     
-    static func fetchPokedex(completion: @escaping(Result<PokedexTopLevel, ResultError>) -> Void) {
+    static func fetchPokedex(completion: @escaping(Result<PokedexTopLevel, NetworkError>) -> Void) {
         guard let baseURL = URL(string: baseURLString) else { return }
         var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
         urlComponents?.path = "/api/v2/pokemon/"
@@ -64,7 +68,7 @@ class NetworkingController {
         }.resume()
     } //End of fetchPokedex
     
-    static func fetchImage(for pokemon: Pokemon, completetion: @escaping (Result<UIImage, ResultError>) -> Void) {
+    static func fetchImage(for pokemon: Pokemon, completetion: @escaping (Result<UIImage, NetworkError>) -> Void) {
         guard let imageURL = URL(string: pokemon.sprites.frontShiny) else {return}
 
         URLSession.shared.dataTask(with: imageURL) { data, _, error in

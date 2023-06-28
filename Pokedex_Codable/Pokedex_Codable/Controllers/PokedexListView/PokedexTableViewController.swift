@@ -10,34 +10,39 @@ import UIKit
 class PokedexTableViewController: UITableViewController {
 
     // MARK: - Properties
-    var pokedex: PokedexTopLevel?
+    var viewModel: PokemonListTableViewModel!
+//    var pokedex: PokedexTopLevel?
     
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // fetch the pokedex
-        NetworkingController.fetchPokedex { [weak self] result in
-            switch result {
-            case .success(let pokedex):
-                DispatchQueue.main.async {
-                    self?.pokedex = pokedex
-                    self?.tableView.reloadData()
-                }
-            case .failure(let error):
-                print(error.errorDescription!)
-            }
-        }
+        viewModel = PokemonListTableViewModel(injectedDelegate: self)
+        viewModel.fetchPokedex()
+//        NetworkingController.fetchPokedex { [weak self] result in
+//            switch result {
+//            case .success(let pokedex):
+//                DispatchQueue.main.async {
+//                    self?.pokedex = pokedex
+//                    self?.tableView.reloadData()
+//                }
+//            case .failure(let error):
+//                print(error.errorDescription!)
+//            }
+//        }
     }
 
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pokedex?.results.count ?? 0
+        return viewModel.pokedex?.results.count ?? 0
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "pokedexCell", for: indexPath) as? PokedexTableViewCell else { return UITableViewCell() }
         
-        guard let pokedex = pokedex else { return UITableViewCell() }
+        guard let pokedex = viewModel.pokedex else { return UITableViewCell() }
         let resultsDict = pokedex.results[indexPath.row]
         cell.updateViews(pokemonResult: resultsDict)
         
@@ -55,3 +60,12 @@ class PokedexTableViewController: UITableViewController {
         destination.pokemonSprite = cell.pokemonSprite
     }
 } //End of class
+
+// MARK: - Extension
+extension PokedexTableViewController: PokemonListTableViewModelDelegate {
+    func pokedexLoadedSuccessfully() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+}
